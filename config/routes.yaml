@@ -1,0 +1,14 @@
+index:
+    path: /
+    controller: App\Controller\FrontendController::index
+
+backend:
+    path: /backend
+    controller: App\Controller\BackendController::index
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+logout:
+    path: /logout

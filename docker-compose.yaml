@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+    web:
+        container_name: new-coding-owl_web
+        image: php:7.2-apache
+        volumes:
+          - .:/var/www/html
+        restart: always
+    db:
+        container_name: new-coding-owl_db
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysqlDb:/var/lib/mysql
+volumes:
+    mysqlDb:
