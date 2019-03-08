@@ -5,8 +5,16 @@
 The CMS is structuring its data in pages.
 Pages will be the main point of data handling, but not the only one.
 Pages are part of navigations and contain content, which itself contains media, like files and so on.
+
+## Layouts
+
 Layouts are represented as special classes that define the positions where to place content in pages
 and assets in content.
+It should be possible to create layouts in a kinda WYSIWYG editor. It sould just contain basic coordinates or
+data representing the positioning of content elements to each other (defining columns and rows for example).
+It should not be too generic, because the layout class should not be dependent on the frontend rendering.
+The frontend rendering (Vue.js for example) should read layouts and decide what to do visually with these
+informations.
 
 ## User handling
 
