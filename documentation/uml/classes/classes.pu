@@ -1,0 +1,159 @@
+@startuml
+class BackendController {
+    -DomainRepository domainRepository
+    +index(Request request)
+    +getNavigationForDomain(Domain domain, string type)
+}
+class DomainRepository {
+    -array querySettings
+    +findByDomain()
+    +findByIdentifier()
+    +enableFindHidden(bool enableHidden)
+}
+class Domain {
+    +string url
+    +string redirect
+    +int redirectCode
+    +bool hidden
+    +Navigation[] navigations
+    +Language language
+    +Page startpage
+    +Acl[] acls
+}
+class Language {
+    +string isoCode
+    +string title
+    +string htmlLang
+    +Acl[] acls
+}
+class Navigation {
+    +string type
+    +Page[] pages
+    +string title
+    +bool hidden
+    +Acl[] acls
+}
+class Page {
+    +string title
+    +string path
+    +string description
+    +string abstract
+    +date expires
+    +date starts
+    +User author
+    +Page[] relatedLanguagePages
+    +Page[] subPages
+    +bool hidden
+    +Layout layout
+    +Column[] columns
+    +Acl[] acls
+}
+class Layout {
+    +string title
+    +int[] columnPositions
+    +string template
+    +Acl[] acls
+}
+class Column {
+    +string title
+    +ContentElement[] contentElements
+    +Acl[] acls
+}
+class ContentElement {
+    string title
+    string text
+    bool hidden
+    +MediaReference[] mediaReferences
+    +Acl[] acls
+}
+class MediaReference {
+    +string overriddenTitle
+    +string overriddenCaption
+    +string overriddenAlternative
+    +string crop
+    +string mediaQuery
+    +string mediaGroup
+    +Media media
+    +Acl[] acls
+}
+class Media {
+    +string title
+    +string caption
+    +string alternative
+    +string mimeType
+    +string extension
+    +string path
+    +MediaRenderer mediaRenderer
+    +Acl[] acls
+}
+class MediaRenderer {
+    +render()
+}
+class User {
+    +string username
+    +string password
+    +string firstname
+    +string lastname
+    +string email
+    +string street
+    +string streetnumber
+    +string zipCode
+    +string city
+    +date lastLogin
+    +bool admin
+    +Group[] groups
+    +Comment[] comments
+    +Notification[] notifications
+    +MediaReference avatar
+}
+class Group {
+    +string title
+    +Group parentGroup
+}
+class Acl {
+    +Group group
+    +bool read
+    +bool write
+}
+class Comment {
+    +string title
+    +string text
+    +User author
+}
+class Notification {
+    +string title
+    +string text
+    +User author
+    +User user
+    +dismiss()
+}
+Domain "1" *-- "many" Navigation
+Domain "1" o-- "1" Language
+Domain "1" o-- "1" Page
+Domain "1" *-- "many" Acl
+Language "1" *-- "many" Acl
+Navigation "1" *-- "many" Page
+Navigation "1" *-- "many" Acl
+Page "1" *-- "many" Page : sub pages
+Page "1" o-- "1" User
+Page "1" o-- "many" Page : related language relations
+Page "1" *-- "1" Layout
+Page "1" *-- "many" Column
+Page "1" *-- "many" Acl
+Layout "1" *-- "many" Acl
+Column "1" *-- "many" ContentElement
+Column "1" *-- "many" Acl
+ContentElement "1" *-- "many" MediaReference
+ContentElement "1" *-- "many" Acl
+MediaReference "1" o-- "1" Media
+MediaReference "1" *-- "many" Acl
+Media "1" o-- "1" MediaRenderer
+Media "1" *-- "many" Acl
+User "1" o-- "many" Group
+User "1" *-- "many" Comment
+User "1" *-- "many" Notification : author
+Notification "1" o-- "1" User : user
+User "1" o-- "1" MediaReference
+Group "1" o-- "1" Group : parent
+Group "1" *-- "1" Acl
+@enduml
