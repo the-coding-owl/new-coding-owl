@@ -1,0 +1,23 @@
+ @startuml
+|User|
+start
+:request login form;
+|CMS|
+:create login hash;
+:show login form;
+|User|
+:fill username and password;
+:submit login form;
+|CMS|
+if (check login hash) then (login hash incorrect)
+    :generate error message;
+    end
+endif
+if (check credentials) then (credentials incorrect)
+    :generate error message;
+    end
+endif
+:show backend;
+|User|
+stop
+@enduml

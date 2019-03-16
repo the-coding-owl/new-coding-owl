@@ -51,7 +51,9 @@
         }
     },
     "autoload-dev": {
-        "classmap": [ "tests/" ]
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
     },
     "replace": {
         "paragonie/random_compat": "2.*",

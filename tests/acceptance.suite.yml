@@ -7,6 +7,10 @@
 actor: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser:
-            url: http://localhost:8000
+        - WebDriver:
+            url: http://new-coding-owl.local/
+            window_size: false
+            port: 9515
+            browser: chrome
         - \App\Tests\Helper\Acceptance
+        - \Codeception\Module\Asserts

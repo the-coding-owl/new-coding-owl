@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor user
+actor admin
+user <|-- admin
+actor database
+rectangle CMS {
+    rectangle Frontend {
+        user -> (call frontend)
+        (call frontend) .> (fetch records) : include
+        (fetch records) -> database
+    }
+    rectangle Backend {
+        admin -- (login)
+        admin -> (create record)
+        (create record) --> database
+        admin -> (edit record)
+        (edit record) --> database
+        admin --> (delete record)
+        (delete record) --> database
+        (create record) .> (login) : include
+        (edit record) .> (login) : include
+        (delete record) .> (login) : include
+    }
+}
+@enduml
