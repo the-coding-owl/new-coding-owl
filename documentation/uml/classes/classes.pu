@@ -4,6 +4,16 @@ class BackendController {
     +index(Request request)
     +getNavigationForDomain(Domain domain, string type)
 }
+class FrontendController {
+    -DomainRepository domainRepository
+    +index(Request request)
+    +getNavigationForDomain(Domain domain, string type)
+    +getPage(int pageIdentifier)
+    +getContentElementsByPage(Page page)
+    +getLayout(int layoutIdentifier)
+    +getPageColumn(Page page)
+
+}
 class DomainRepository {
     -array querySettings
     +findByDomain()
